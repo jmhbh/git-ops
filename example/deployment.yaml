@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: supermario
+  name: supermario
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: supermario
+  template:
+    metadata:
+      labels:
+        app: supermario
+    spec:
+      containers:
+        - image: bharathshetty4/supermario
+          imagePullPolicy: IfNotPresent
+          name: supermario
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+      restartPolicy: Always
