@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   labels:
     app: supermario
+  name: supermario
 spec:
   replicas: 1
   selector:
