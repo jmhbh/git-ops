@@ -15,7 +15,7 @@ spec:
         app: supermario
     spec:
       containers:
-        - image: bharathshetty4/supermario
+        - image: thtom/supermario:latest
           imagePullPolicy: IfNotPresent
           name: supermario
           ports:
