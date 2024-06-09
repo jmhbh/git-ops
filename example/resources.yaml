@@ -2,6 +2,46 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
+    app: tailscale
+  name: tailscale
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tailscale
+  template:
+    metadata:
+      labels:
+        app: tailscale
+    spec:
+      containers:
+        - image: tailscale/tailscale:stable
+          imagePullPolicy: IfNotPresent
+          name: tailscale
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    tailscale.com/expose: "true"
+  name: tailscale
+  labels:
+    app: tailscale
+spec:
+  ports:
+    - port: 8080
+      protocol: TCP
+  selector:
+    app: tailscale
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
     app: supermario
   name: supermario
 spec:
@@ -26,8 +66,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    tailscale.com/expose: "true"
   name: supermario
   labels:
     app: supermario
